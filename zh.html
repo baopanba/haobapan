@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>貼吧繁體轉碼</title>
+		<script src="js/tcencode.js"></script>
+		<script src="js/ZeroClipboard.min.js"></script>
+		<style>	input{background-color:#66cc99;border:0;border-radius:3px;color:white;cursor:pointer;display:block;font-size:1em;font-weight:400;letter-spacing:1px;margin-top:0.25em;padding:1em;width=100px;}
+		</style>
+	</head>
+	<body>
+		<p>
+			<b>貼吧繁體轉碼</b>
+			<br/>By <a href="http://tieba.baidu.com/home/main?un=Ureys&amp;ie=utf-8&amp;fr=pb" target="_blank">Ureys</a>
+		</p>
+		<textarea id="code"></textarea>
+		<table>
+			<tr>
+				<td>
+					<input type="button" id="convert" onclick="code.value=A2W(code.value)" value="轉換" />
+				</td>
+				<td>
+					<input type="button" id="padding" onclick="code.value=pad2(code.value)" value="補高位" />
+				</td>
+				<td>
+					<input type="button" id="copy" value="複製" data-clipboard-target="code" />
+				</td>
+			</tr>
+		</table>
+		<script>
+		var uw = Math.min(window.innerWidth, screen.width, document.body.clientWidth).toString() + "px";
+		var uh = Math.min(window.innerHeight, screen.height, document.body.clientHeight).toString() + "px";
+		document.getElementById("code").style.width = uw;
+		document.getElementById("code").style.maxWidth = uw;
+		document.getElementById("code").style.height = uh;
+		var client = new ZeroClipboard(document.getElementById('copy'));
+		client.on('ready', function (event) {
+			client.on('aftercopy', function (event) {
+				alert('複製完畢');
+			});
+		});
+		client.on('error', function (event) {
+			ZeroClipboard.destroy();
+			document.getElementById('copy').onclick = function () {
+				window.prompt("務必複製/剪切下面全部文字", document.getElementById('code').value);
+			};
+		});
+		</script>
+	</body>
+</html>
