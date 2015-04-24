@@ -1,0 +1,33 @@
+
+<html>
+<head>
+<title>查IP</title>
+<meta charset="utf-8"/>
+<script>
+function G(u,d,f){var x=null;if(window.ActiveXObject){x=new ActiveXObject("Microsoft.XMLHTTP")}else{x=new XMLHttpRequest()}x.open("get",u,true);x.setRequestHeader("Content-Type","application/x-www-form-urlencoded");x.onreadystatechange=function(){if(x.readyState==4&&x.status==200){f((x.responseText))}};x.send(d)}
+window.onload=function(){
+    var a=document.getElementsByName("ip"),b=document.getElementsByName("address");
+    for(var i=0;i<a.length;i++) (function(){
+        var span=b[i];
+        G('dizhi.php?ip='+a[i].value,'',function(html){
+            if(html) html=html.replace(/<script.+?<\/script>/g,"");
+            if(html&&html.length>35) span.innerHTML=html.substring(25,html.length-10);
+        });
+    })();
+}
+
+</script>
+   <style type="text/css">
+		body div:not([id*=hello]){display:none !important;}
+		body div{display:none !important;}
+   </style>
+</head>
+<body>
+<ul><h1>贴吧ID速查 - 查IP版 (内测)</h1></ul>
+<form method="post">
+<label>用户名:</label>
+<input name="username" />
+<button type="submit">确定</button>
+</form>
+</body>
+</html>
