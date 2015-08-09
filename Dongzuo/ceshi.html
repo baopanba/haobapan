@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>TEST</title>
+<style>
+.loading{opacity:0;background:#fff url(http://ww2.sinaimg.cn/large/67b8e0d6tw1erotlvh8gvj20960domxl.jpg);
+background-position:center center;
+-webkit-background-size:cover;
+-moz-background-size:cover;
+-o-background-size:cover;
+background-size:cover;position:fixed;width:100%;top:0;bottom:0;animation:Loading 2s;line-height:100vh;text-align:center;font-size:30px;color:#ccc;}
+@keyframes Loading
+{
+0% {opacity:1;color:#C1FF50;z-index:999999;}
+20% {opacity:1;color:#5CB8FF;}
+40% {opacity:1;color:#FFD350;}
+60% {opacity:1;color:#FF5950;}
+80% {opacity:.5;color:#fff;}
+100% {opacity:0;}
+}
+</style>
+</head>
+<body>
+<div class="loading">Loading...</div>
+</body>
+</html>
