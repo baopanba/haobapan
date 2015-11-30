@@ -1,51 +1,97 @@
 
 <!DOCTYPE html>
+
 <html>
-	<head>
-		<meta charset="utf-8" />
-		<title>貼吧繁體轉碼</title>
-		<script src="js/tcencode.js"></script>
-		<script src="js/ZeroClipboard.min.js"></script>
-		<style>	input{background-color:#66cc99;border:0;border-radius:3px;color:white;cursor:pointer;display:block;font-size:1em;font-weight:400;letter-spacing:1px;margin-top:0.25em;padding:1em;width=100px;}
-		</style>
-	</head>
-	<body>
-		<p>
-			<b>貼吧繁體轉碼</b>
-			
-		</p>
-		<textarea id="code"></textarea>
-		<table>
-			<tr>
-				<td>
-					<input type="button" id="convert" onclick="code.value=A2W(code.value)" value="轉換" />
-				</td>
-				<td>
-					<input type="button" id="padding" onclick="code.value=pad2(code.value)" value="補高位" />
-				</td>
-				<td>
-					<input type="button" id="copy" value="複製" data-clipboard-target="code" />
-				</td>
-			</tr>
-		</table>
-		<script>
-		var uw = Math.min(window.innerWidth, screen.width, document.body.clientWidth).toString() + "px";
-		var uh = Math.min(window.innerHeight, screen.height, document.body.clientHeight).toString() + "px";
-		document.getElementById("code").style.width = uw;
-		document.getElementById("code").style.maxWidth = uw;
-		document.getElementById("code").style.height = uh;
-		var client = new ZeroClipboard(document.getElementById('copy'));
-		client.on('ready', function (event) {
-			client.on('aftercopy', function (event) {
-				alert('複製完畢');
-			});
-		});
-		client.on('error', function (event) {
-			ZeroClipboard.destroy();
-			document.getElementById('copy').onclick = function () {
-				window.prompt("務必複製/剪切下面全部文字", document.getElementById('code').value);
-			};
-		});
-		</script>
-	</body>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta charset="utf-8">
+<title>补高位转码解码</title>
+<style>input{background-color:#00BFF0;border:0;border-radius:3px;color:white;cursor:pointer;display:block;font-size:1em;font-weight:400;letter-spacing:1px;margin-top:0.25em;padding:1em;width=100px;}</style>
+
+<script>
+function encode(){
+	var str=document.getElementById('content').value;
+	document.getElementById('content').value='';
+	var temp='';
+	var result='';
+	for (var i=0;i<str.length;i++){
+		if(str.charCodeAt(i)==55376&&str.charCodeAt(i+1)==57265){
+			result+='';
+			i++;
+		}else if(str.charCodeAt(i)>=55296&&str.charCodeAt(i)<=56319&&str.charCodeAt(i+1)>=56320&&str.charCodeAt(i+1)<=57343){
+			temp=str.charAt(i)+str.charAt(i+1);
+			i++;
+		}else{
+			for(var j=0;j<1023;j++){
+				if(131072+str.charCodeAt(i)>=65536+j*1024&&131072+str.charCodeAt(i)<=66559+j*1024){
+					temp=String.fromCharCode(55296+j,str.charCodeAt(i)+121856-j*1024);
+				}
+			}
+		} 
+		result+=temp;	
+	}
+	document.getElementById('content').value=String.fromCharCode(55376,57265)+result;
+}
+function decode(){
+	var str=document.getElementById('content').value;
+	document.getElementById('content').value='';
+	var result='';
+	for (var i = 0; i < str.length; i++) {
+		if(str.charCodeAt(i)==55376&&str.charCodeAt(i+1)==57265){
+			result+='';
+			i++;
+		}else if(str.charCodeAt(i)>=55296&&str.charCodeAt(i)<=56319&&str.charCodeAt(i+1)>=56320&&str.charCodeAt(i+1)<=57343){
+			result+=String.fromCharCode((str.charCodeAt(i)-55296)*1024+str.charCodeAt(i+1)-121856);
+			i++;
+		}else{
+			result+=str.charAt(i);
+		}
+	}
+	document.getElementById('content').value=result;
+}
+function unicode(){
+	var str=document.getElementById('content').value;
+	document.getElementById('content').value='';
+	var result='';
+	for (var i=0;i<str.length;i++){
+		if(str.charCodeAt(i)==55376&&str.charCodeAt(i+1)==57265){
+			result+='';
+			i++;
+		}else if(str.charCodeAt(i)>=55296&&str.charCodeAt(i)<=56319&&str.charCodeAt(i+1)>=56320&&str.charCodeAt(i+1)<=57343){
+			result+=String.fromCharCode(55360,56358)+'#'+((str.charCodeAt(i) - 55296)*1024+str.charCodeAt(i+1)+9126)+';';
+			i++;
+		}else{
+			result +=String.fromCharCode(55360,56358)+'#'+str.charCodeAt(i)+';';
+		}	
+	}
+	document.getElementById('content').value=String.fromCharCode(55376,57265)+String.fromCharCode(55360,56358)+'#148401;'+result;
+}
+</script>
+</head>
+
+<body>
+
+<p>
+
+<b>补高位转码解码</b>
+</p>
+
+<textarea id="content" style="width: 100%;  height: 200px;"></textarea>
+
+<table>
+
+<tbody>
+<tr>
+
+<td><input type="button"  onclick="encode()" value="转码"></td>
+<td>
+<div style="text-align:right;"></div> <input type="button"  onclick="decode()" value="解码"></td>
+<td>
+<div style="text-align:right;"></div> <input type="button"  onclick="unicode()" value="unicode"></td>
+</tr>
+
+</tbody>
+</table>
+</body>
 </html>
